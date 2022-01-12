@@ -3,43 +3,70 @@
 
 <head>
     <meta charset="utf-8">
-    <title>ライフサイクルダイアグラム</title>
+    <title>テンプレート構文 - 展開</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 </head>
 
 <body>
     <div id="app">
-        コンソールを開くと、共通イベントの順番および変数の反映内容が見れます。
+
+        <h3>テキスト</h3>
+        <hr>
+
+        <div>データバインド(基本)</div>
+        <span>Message: {{ msg }}</span>
+        <hr>
+        <div>データバインド(v-once ディレクティブ)</div>
+        <span v-once>Message: {{ msg }}</span>
+        <hr>
+
+        <h3>生の HTML</h3>
+        <hr>
+        <p>基本: {{ rawHtml }}</p>
+        <p>v-html ディレクティブ: <span v-html="rawHtml"></span></p>
+        <hr>
+
+        <h3>属性</h3>
+        <hr>
+        <p>v-bind dynamicid</p>
+        <div v-bind:id="dynamicId">ここをブラウザの要素を確認で、id = mydividが設定されていることが確認できる</div>
+
+        <hr>
+        <p>v-bind disabled</p>
+        <button v-bind:disabled="isButtonDisabled">活性ボタン</button>
+        <button v-bind:disabled="isButtonDisabled2">非活性ボタン</button>
+        <div>disabledの場合は、true/false だけで制御できる</div>
+
+        <hr>
+        <h3>JavaScript 式の使用</h3>
+        <hr>
+
+        <div>{{number}} + 1 → {{ number + 1 }}</div>
+        <div>ok=trueの場合YES/以外はNO → {{ ok ? 'YES' : 'NO' }}</div>
+        <div>{{message}} を反転 → {{ message.split('').reverse().join('') }}</div>
+        <div v-bind:id="'list-' + divid">divのidをナンバリング(list-{{divid}}) → 要素を検証して</div>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
     <script>
-        console.debug("Vueの開始");
-        new Vue({
+        var ve = new Vue({
             el: '#app',
             data: {
-                a: 1
-            },
-            beforeCreate: function () {
-                // `this` は vm インスタンスを指します
-                console.log('beforeCreate  a: ' + this.a)
-            },
-            created: function () {
-                console.log('created       a: ' + this.a)
-            },
-            beforeMount: function () {
-                console.log('beforeMount   a: ' + this.a)
-            },
-            mounted: function () {
-                console.log('mounted       a: ' + this.a)
-            },
-            beforeDestory: function () {
-                console.log('beforeDestory a: ' + this.a)
-            },
-            destroyed: function () {
-                console.log('destroyed     a: ' + this.a)
+                msg: "こんにちわ Vue!",
+                rawHtml: '<span style="color: red">これは赤です</span>',
+                dynamicId: 'mydivid',
+                isButtonDisabled: false,
+                isButtonDisabled2: true,
+                number: 123,
+                ok: false,
+                message: 'あいうえお',
+                divid: 1234
             }
-        })
+        });
+
+        // 変更してみる
+        ve.msg = "さようなら Vue!";
     </script>
 </body>
 
