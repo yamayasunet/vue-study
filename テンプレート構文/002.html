@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>テンプレート構文 - ディレクティブ</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+
+<body>
+    <div id="app">
+
+        <h3>基本</h3>
+        <hr>
+        <p v-if="seen">いま、あなたは私が見えているはず</p>
+        <p v-if="seen2">いま、あなたは私が見えていないはず</p>
+        <hr>
+
+        <h3>引数</h3>
+        <hr>
+        <div>v-bind ディレクティブ(値)</div>
+        <a v-bind:href="url">ここがヤフーのリンクになっている</a>
+        <hr>
+        <div>v-on ディレクティブ(イベント)</div>
+        <a v-on:click="doSomething">ここをクリックするとメッセージが出ます</a>
+        
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script>
+        var ve = new Vue({
+            el: '#app',
+            data: {
+                seen: true,
+                seen2: false,
+                url: 'http://yahoo.co.jp/',
+                doSomething: function(){
+                    alert('クリックされました！');
+                }
+            }
+        });
+
+    </script>
+</body>
+
+</html>
