@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>ライフサイクルダイアグラム</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+
+<body>
+    <div id="app">
+        コンソールを開くと、共通イベントの順番および変数の反映内容が見れます。
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script>
+        console.debug("Vueの開始");
+        new Vue({
+            el: '#app',
+            data: {
+                a: 1
+            },
+            beforeCreate: function () {
+                // `this` は vm インスタンスを指します
+                console.log('beforeCreate  a: ' + this.a)
+            },
+            created: function () {
+                console.log('created       a: ' + this.a)
+            },
+            beforeMount: function () {
+                console.log('beforeMount   a: ' + this.a)
+            },
+            mounted: function () {
+                console.log('mounted       a: ' + this.a)
+            },
+            beforeDestory: function () {
+                console.log('beforeDestory a: ' + this.a)
+            },
+            destroyed: function () {
+                console.log('destroyed     a: ' + this.a)
+            }
+        })
+    </script>
+</body>
+
+</html>
