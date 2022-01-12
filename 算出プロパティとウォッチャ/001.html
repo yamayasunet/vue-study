@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>算出プロパティ</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+
+<body>
+    <div id="example">
+
+        <p>オリジナル メッセージ: "{{ message }}"</p>
+        <p>算出(逆順) メッセージ: "{{ reversedMessage }}"</p>
+
+        <pre>
+            コンソールに入力して、値の変化を見てみて！
+            console.log(vm.reversedMessage); // => 'はちにんこ'
+            vm.message = 'さようなら';
+            console.log(vm.reversedMessage); // => 'らなうよさ'
+        </pre>
+
+        <hr>
+        <h3>算出プロパティ vs メソッド</h3>
+        算出プロパティ(何回呼んでも評価は一度)
+        <ol>
+            <li>{{ randomComp }}</li>
+            <li>{{ randomComp }}</li>
+            <li>{{ randomComp }}</li>
+        </ol>
+        メソッド(呼ぶたびに評価)
+        <ol>
+            <li> {{ randomMethod() }}</li>
+            <li> {{ randomMethod() }}</li>
+            <li> {{ randomMethod() }}</li>
+        </ol>
+    </div>
+
+    <hr>
+    <h3>算出プロパティ vs 監視プロパティ</h3>
+    <div>ソースコードの複雑度を比べて見る。(動作は同じ)</div>
+    <div id="demo1">算出プロパティ(vm1)：{{ fullName }}</div>
+    <div id="demo2">監視プロパティ(vm2)：{{ fullName }}</div>
+    <hr>
+
+    <h3>算出 Setter 関数</h3>
+    <div>Setterも実装できる</div>
+    <div id="demo3">算出プロパティ(vm3)：{{ fullName }}</div>
+    <hr>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#example',
+            data: {
+                message: 'こんにちは',
+                nowTime: Date.now()
+            },
+            computed: {
+                reversedMessage: function () {
+                    return this.message.split('').reverse().join('');
+                },
+                randomComp: function () {
+                    return Math.random();
+                }
+            },
+            methods: {
+                randomMethod: function () {
+                    return Math.random();
+                }
+            }
+        });
+
+        var vm1 = new Vue({
+            el: '#demo1',
+            data: {
+                firstName: '佐藤',
+                lastName: '太郎'
+            },
+            computed: {
+                fullName: function () {
+                    return this.firstName + ' ' + this.lastName
+                }
+            }
+        });
+        var vm2 = new Vue({
+            el: '#demo2',
+            data: {
+                firstName: '佐藤',
+                lastName: '太郎',
+                fullName: '佐藤 太郎'
+            },
+            watch: {
+                firstName: function (val) {
+                    this.fullName = val + ' ' + this.lastName
+                },
+                lastName: function (val) {
+                    this.fullName = this.firstName + ' ' + val
+                }
+            }
+        });
+
+        var vm3 = new Vue({
+            el: '#demo3',
+            data: {
+                firstName: '佐藤',
+                lastName: '太郎'
+            },
+            computed: {
+                fullName: {
+                    // getter 関数
+                    get: function () {
+                        return this.firstName + '☆' + this.lastName
+                    },
+                    // setter 関数
+                    set: function (newValue) {
+                        var names = newValue.split(' ')
+                        this.firstName = names[0]
+                        this.lastName = names[names.length - 1]
+                    }
+                }
+            }
+        });
+        // Setterで上書きする
+        vm3.fullName = "田中 花子";
+
+    </script>
+</body>
+
+</html>
