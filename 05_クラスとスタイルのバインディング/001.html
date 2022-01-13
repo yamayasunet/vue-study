@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>HTML クラスのバインディング</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+
+<body>
+    <div id="app1">
+        <h3>オブジェクト構文</h3>
+        <div class="static" v-bind:class="{ active: isActive, 'text-danger': hasError }">
+            ここの要素を検証すると class="static active" が設定されているはず。
+        </div>
+
+        <hr>
+
+        <div>クラスオブジェクト</div>
+        <div v-bind:class="classObject">
+            ここの要素を検証すると class="active" が設定されているはず。
+        </div>
+    </div>
+
+    <hr>
+
+    <div id="app2">
+        <div>クラスオブジェクト(算出プロパティ))</div>
+        <div v-bind:class="classObject">
+            ここの要素を検証すると class="active" が設定されているはず。
+        </div>
+    </div>
+
+    <hr>
+    <div id="app3">
+        <h3>配列構文</h3>
+        <div v-bind:class="[activeClass, errorClass]">
+            ここの要素を検証すると class="active text-danger" が設定されているはず。
+        </div>
+        <div v-bind:class="[isActive ? activeClass : '', errorClass]">
+            ここの要素を検証すると class="active text-danger" が設定されているはず。(三項演算子)
+        </div>
+        <div v-bind:class="[{ active: isActive }, errorClass]">
+            ここの要素を検証すると class="active text-danger" が設定されているはず。(オブジェクト構文)
+        </div>
+    </div>
+
+    <hr>
+    <div id="app4">
+        <h3>コンポーネントにおいて</h3>
+        コンポーネントの文字列が表示され、class="foo bar baz boo" が設定されているはず。(class要素は上書きでなく、追加される)
+        <my-component class="baz boo"></my-component>
+
+        クラスバインディングを使用しても同様。class="foo bar active" が設定されているはず(class要素は上書きでなく、追加される)
+        <my-component v-bind:class="{ active: isActive }"></my-component>
+    </div>
+
+    <hr>
+    <div id="app5">
+        <h3>インラインスタイルのバインディング</h3>
+        <div>オブジェクト構文</div>
+        <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">ここに真っ赤な大きい文字列が表示される</div>
+
+        <div>配列構文</div>
+        <div v-bind:style="[baseStyles, overridingStyles]">ここに青くてちょっと大きな文字が表示される</div>
+
+        <div>自動プリフィックス</div>
+        <div>現在(2021年)は、ブラウザが対応してきたのでprefixは付けられないようだ</div>
+        コピーできる
+        <div v-bind:style="{ userSelect : userSelect }">ここはコピーできないエリア</div>
+        コピーできる
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script>
+        var vm1 = new Vue({
+            el: '#app1',
+            data: {
+                isActive: true,
+                hasError: false,
+                classObject: {
+                    active: true,
+                    'text-danger': false
+                }
+            }
+        });
+        var vm2 = new Vue({
+            el: '#app2',
+            data: {
+                isActive: true,
+                error: null
+            },
+            computed: {
+                classObject: function () {
+                    return {
+                        active: this.isActive && !this.error,
+                        'text-danger': this.error && this.error.type === 'fatal'
+                    }
+                }
+            }
+        });
+        var vm3 = new Vue({
+            el: '#app3',
+            data: {
+                isActive: true,
+                activeClass: 'active',
+                errorClass: 'text-danger'
+            }
+        });
+
+        Vue.component('my-component', {
+            template: '<p class="foo bar">ﾊｲｯ　(･ω･*∩</p>'
+        })
+        var vm4 = new Vue({
+            el: '#app4',
+            data: {
+                isActive: true
+            }
+        });
+
+        var vm5 = new Vue({
+            el: '#app5',
+            data: {
+                activeColor: 'red',
+                fontSize: 30,
+                baseStyles: { color: 'red', fontSize: '25px' },
+                overridingStyles: { color: 'blue' },
+                userSelect: 'none'
+            }
+        });
+
+    </script>
+</body>
+
+</html>
