@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>条件付きレンダリング</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+
+<body>
+    <div id="app1">
+
+        <h3>v-if</h3>
+        <div>trueの場合：
+            <div v-if="awesome1">Vue はすばらしい！</div>
+            <div v-else>そんな... 😢</div>
+        </div>
+        <div>falseの場合：
+            <div v-if="awesome2">Vue はすばらしい！</div>
+            <div v-else>そんな... 😢</div>
+        </div>
+
+        <hr>
+
+        <h3>テンプレートでの v-if による条件グループ</h3>
+        <template v-if="ok">
+            <h1>タイトル</h1>
+            <p>テンプレートタグは削除され</p>
+            <p>この部分だけが表示されている</p>
+            <p>コンソールで vm1.ok=false すると消えます。</p>
+        </template>
+
+        <hr>
+
+        <h3>v-else</h3>
+        50%の確率で😊が表示される（リロードするたびに再抽選）
+        <div v-if="Math.random() > 0.5">
+            😊
+        </div>
+        <div v-else>
+            😢
+        </div>
+
+        <hr>
+
+        <h3>v-else-if</h3>
+        選択した
+        <select v-model="type">
+            <option disabled value="">１つ選択してください</option>
+            <option value="A">A : い</option>
+            <option value="B">B : ろ</option>
+            <option value="C">C : は</option>
+            <option value="D">D : 判定できない</option>
+        </select>
+        <div v-if="type === 'A'">
+            い
+        </div>
+        <div v-else-if="type === 'B'">
+            ろ
+        </div>
+        <div v-else-if="type === 'C'">
+            は
+        </div>
+        <div v-else>
+            判定できない
+        </div>
+
+        <hr>
+        <h3>key による再利用可能な要素の制御</h3>
+        <div>テキストに入力したあと、切り替えボタンを押下しても値だけ引き継がれる。</div>
+        <template v-if="loginType === 'username'">
+            <label>ユーザ名</label>
+            <input placeholder="ユーザ名を入力">
+        </template>
+        <template v-else>
+            <label>メールアドレス</label>
+            <input placeholder="メールアドレスを入力">
+        </template>
+        <div>keyを付けると、切り替えボタンを押下しても値は引き継がれない。</div>
+        <template v-if="loginType === 'username'">
+            <label>ユーザ名</label>
+            <input placeholder="ユーザ名を入力" key="username-input">
+        </template>
+        <template v-else>
+            <label>メールアドレス</label>
+            <input placeholder="メールアドレスを入力" key="email-input">
+        </template>
+        <p>
+            <button @click="toggleLoginType">ログインタイプ切り替え</button>
+        </p>
+
+        <hr>
+
+        <h3>v-show</h3>
+        v-show は Display:none しているだけなので、要素自身は残っている。（要素を確認してみるとわかる）
+        <div v-show="ok">ハロー!</div>
+        <div v-show="!ok">みえない要素</div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script>
+        var vm1 = new Vue({
+            el: '#app1',
+            data: {
+                awesome1: true,
+                awesome2: false,
+                ok: true,
+                type: null,
+                loginType: 'username'
+            },
+            methods: {
+                toggleLoginType: function () {
+                    return this.loginType = this.loginType === 'username' ? 'email' : 'username'
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
