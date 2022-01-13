@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>条件付きレンダリング</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+
+<body>
+
+    <h3>フィルタ/ソートされた結果の表示</h3>
+    フィルタ(2の倍数だけ表示)
+    <ul id="app1">
+        <li v-for="n in evenNumbers">{{ n }}</li>
+    </ul>
+
+    入れ子(子/孫でループ＋偶数フィルタ)
+    <div id="app2">
+        <ul v-for="set in sets">
+            <li v-for="n in even(set)">{{ n }}</li>
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script>
+        var app1 = new Vue({
+            el: '#app1',
+            data: {
+                numbers: [1, 2, 3, 4, 5]
+            },
+            computed: {
+                evenNumbers: function () {
+                    return this.numbers.filter(function (number) {
+                        return number % 2 === 0
+                    })
+                }
+            }
+        });
+
+        var app2 = new Vue({
+            el: '#app2',
+            data: {
+                sets: [[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]]
+            },
+            methods: {
+                even: function (numbers) {
+                    return numbers.filter(function (number) {
+                        return number % 2 === 0
+                    })
+                }
+            }
+        });
+
+    </script>
+</body>
+
+</html>

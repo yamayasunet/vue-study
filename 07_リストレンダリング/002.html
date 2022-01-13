@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>条件付きレンダリング</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+
+<body>
+    <h3>オブジェクトの v-for</h3>
+    <div>値のリスト</div>
+    <ul id="app1">
+        <li v-for="value in object">
+            {{ value }}
+        </li>
+    </ul>
+
+    <p>もちろんプロパティもアクセス可能</p>
+    <div id="app2">
+        <div v-for="(value, name) in object">
+            {{ name }}: {{ value }}
+        </div>
+        <p>indexもアクセス可能</p>
+        <div v-for="(value, name, index) in object">
+            {{ index }}. {{ name }}: {{ value }}
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app1',
+            data: {
+                object: {
+                    title: 'Vueでリストを作る方法',
+                    author: '佐藤 太郎',
+                    publishedAt: '2021-01-13'
+                }
+            }
+        });
+
+        new Vue({
+            el: '#app2',
+            data: {
+                object: {
+                    title: 'Vueでリストを作る方法',
+                    author: '佐藤 太郎',
+                    publishedAt: '2021-01-13'
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

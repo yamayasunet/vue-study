@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>条件付きレンダリング</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+
+<body>
+    <h3>v-for と v-if</h3>
+    <div>for → if の順に評価される(forが先)</div>
+    <div>※にゃんこフィルタなので、にゃんこだけ登場</div>
+    <div id="app">
+        <ul>
+            <li v-for="todo in todos" v-if="isComplete(todo)">
+                {{ todo }}
+            </li>
+        </ul>
+
+        <div>ifを先にしたいのであれば、先にifで囲ってあげる</div>
+        <div>コンソールで example10.todos.splice(0) で、消える</div>
+        <ul v-if="todos.length">
+            <li v-for="todo in todos">
+                {{ todo }}
+            </li>
+        </ul>
+        <p v-else>データがありません</p>
+    </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script>
+
+        new Vue({
+            el: '#app',
+            data: {
+                todos: [
+                    "わんこ",
+                    "にゃんこ",
+                    "いんこ"
+                ],
+            },
+            methods: {
+                isComplete: function (item) {
+                    // にゃんこだけ通ってよし
+                    if (item === "にゃんこ") {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+        });
+
+    </script>
+</body>
+
+</html>

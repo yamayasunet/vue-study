@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>条件付きレンダリング</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+
+<body>
+
+    <h3>範囲付き v-for</h3>
+    for x in 数字にすると、その回数ループ
+    <div id="app">
+        <span v-for="n in 10">{{ n }} </span>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script>
+
+        new Vue({
+            el: '#app',
+            data: {
+            }
+        });
+
+    </script>
+</body>
+
+</html>
