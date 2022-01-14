@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>フォーム入力バインディング</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h3>修飾子</h3>
+
+    <hr>
+    <div id="app1">
+
+        <h4>.lazy</h4>
+
+        <p>通常反映：入力と同時に反映</p>
+        <div>メッセージ: {{ message1 }}</div>
+        <input v-model="message1" placeholder="私を編集して">
+        <p>遅延反映：フォーカスアウト時に反映</p>
+        <div>メッセージ: {{ message2 }}</div>
+        <input v-model.lazy="message2" placeholder="私を編集して">
+
+        <hr>
+
+        <h4>.number</h4>
+
+        <p>数字のみ入力可能なボックスにする＆数値として変数になる</p>
+        <div>メッセージ: {{ age }}(type: {{ typeof age }})</div>
+        <input v-model.number="age" type="number">
+
+        <hr>
+
+        <h4>.trim</h4>
+
+        <p>自動的にtrimされるテキストボックスになる</p>
+        <div>メッセージ: {{ msgTrim }}</div>
+        <input v-model.trim="msgTrim" placeholder="私を編集して">
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app1',
+            data: {
+                message1: "",
+                message2: "",
+                age: 0,
+                msgTrim: "",
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>フォーム入力バインディング</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h3>基本的な使い方</h3>
+
+    <hr>
+    <div id="app1">
+        <h4>テキスト</h4>
+        <div>テキストボックスの日本語変換時は、変換確定後に連携されるので注意。</div>
+        <p>メッセージ: {{ message }}</p>
+        <input v-model="message" placeholder="私を編集して">
+    </div>
+
+    <hr>
+
+    <div id="app2">
+        <h4>複数行テキスト(テキストエリア)</h4>
+        <span>メッセージ:</span>
+        <p style="white-space: pre-line;">{{ message }}</p>
+        <br>
+        <textarea v-model="message" placeholder="add multiple lines"></textarea>
+    </div>
+
+    <hr>
+
+    <div id="app3">
+        <h4>チェックボックス</h4>
+        <div>通常</div>
+        <input type="checkbox" id="checkbox" v-model="checked">
+        <label for="checkbox">{{ checked }}</label>
+
+        <br> <br>
+        <div>複数の場合は同じ配列で編集される</div>
+        <input type="checkbox" id="jack" value="ジャック" v-model="checkedNames">
+        <label for="jack">ジャック</label>
+        <input type="checkbox" id="john" value="ジョン" v-model="checkedNames">
+        <label for="john">ジョン</label>
+        <input type="checkbox" id="mike" value="マイク" v-model="checkedNames">
+        <label for="mike">マイク</label>
+        <br>
+        <span>選択されたもの: {{ checkedNames }}</span>
+    </div>
+
+    <hr>
+
+    <div id="app4">
+        <h4>ラジオ</h4>
+        <input type="radio" id="one" value="One" v-model="picked">
+        <label for="one">One</label>
+        <br>
+        <input type="radio" id="two" value="Two" v-model="picked">
+        <label for="two">Two</label>
+        <br>
+        <span>選択中: {{ picked }}</span>
+    </div>
+
+    <hr>
+
+    <div id="app5">
+        <h4>セレクトボックス</h4>
+
+        <h4>単一選択</h4>
+        <select v-model="selected">
+            <option disabled value="">ひとつ選択してください</option>
+            <option>太郎</option>
+            <option>花子</option>
+            <option>ポチ</option>
+        </select>
+        <span>選択中: {{ selected }}</span>
+
+        <h4>複数選択</h4>
+        <select v-model="multiSelected" multiple>
+            <option>太郎</option>
+            <option>花子</option>
+            <option>ポチ</option>
+        </select>
+        <br>
+        <span>選択中: {{ multiSelected }}</span>
+
+        <h4>動的項目</h4>
+        <select v-model="dynamicSelected">
+            <option v-for="option in dynamicOptions" v-bind:value="option.value">
+                {{ option.text }}
+            </option>
+        </select>
+        <span>選択中: {{ dynamicSelected }}</span>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app1',
+            data: {
+                message: ""
+            }
+        });
+        new Vue({
+            el: '#app2',
+            data: {
+                message: ""
+            }
+        });
+        new Vue({
+            el: '#app3',
+            data: {
+                checked: false,
+                checkedNames: []
+            }
+        });
+        new Vue({
+            el: '#app4',
+            data: {
+                picked: null
+            }
+        });
+        new Vue({
+            el: '#app5',
+            data: {
+                selected: null,
+                multiSelected: [],
+                dynamicSelected: null,
+                dynamicOptions: [{
+                        text: '太郎',
+                        value: 'taro'
+                    },
+                    {
+                        text: '次郎',
+                        value: 'jiro'
+                    },
+                    {
+                        text: '三郎',
+                        value: 'saburo'
+                    }
+                ]
+            }
+        });
+    </script>
+</body>
+
+</html>

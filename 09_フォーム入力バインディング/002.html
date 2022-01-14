@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>フォーム入力バインディング</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h3>値のバインディング</h3>
+
+    <hr>
+    <div id="app1">
+
+        <!-- チェックされたとき、`picked` は文字列"a"になります -->
+        <h4>ラジオボタン</h4>
+        <div>選択されると、valueの値が入る</div>
+        <input type="radio" v-model="picked" value="a">
+        <label for="picked">選択肢1</label>
+        <p>値: {{ picked }}</p>
+
+        <!-- `toggle` は true かまたは false のどちらかです -->
+        <h4>チェックボックス</h4>
+        <div>チェックされると、true/falseの値が入る</div>
+
+        <input type="checkbox" v-model="toggle">
+        <label for="toggle">チェック</label>
+        <p>値: {{ toggle }}</p>
+
+        <h4>セレクトボックス</h4>
+        <div>選択されると、valueの値が入る</div>
+        <!-- 最初のオプションが選択されたとき、`selected` は文字列"abc"です -->
+        <select v-model="selected">
+            <option value="abc">ABC</option>
+        </select>
+        <p>値: {{ selected }}</p>
+
+    </div>
+
+    <hr>
+
+    <div id="app2">
+        <h4>チェックボックス(値指定)</h4>
+        <input type="checkbox" v-model="toggle" true-value="yes" false-value="no">
+        <p>値: {{ toggle }}</p>
+
+        <h4>ラジオボタン(値指定)</h4>
+        <div>v-bindを使うと、任意の値も設定可能</div>
+        <input type="radio" v-model="pick" v-bind:value="radioValue">
+        <p>値: {{ pick }}</p>
+
+        <h4>セレクトボックス(値指定)</h4>
+        <select v-model="selected">
+            <div>インラインオブジェクトも設定可能</div>
+            <!-- インラインオブジェクトリテラル -->
+            <option v-bind:value="{ number: 123 }">123</option>
+        </select>
+        <p>値: {{ selected.number }}</p>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app1',
+            data: {
+                picked: "",
+                toggle: false,
+                selected: null
+            }
+        });
+        new Vue({
+            el: '#app2',
+            data: {
+                toggle: null,
+                pick: null,
+                radioValue: '任意の値',
+                selected: {
+                    number: null
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
