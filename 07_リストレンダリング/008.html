@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>条件付きレンダリング</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h3>コンポーネントと v-for</h3>
+
+    <div id="todo-list-example">
+        <form v-on:submit.prevent="addNewTodo">
+            <label for="new-todo">TODOの追加</label>
+            <input v-model="newTodoText" id="new-todo" placeholder="例：猫に餌をやる">
+            <button>追加</button>
+        </form>
+        <ul>
+            <li is="todo-item" v-for="(todo, index) in todos" v-bind:key="todo.id" v-bind:title="todo.title"
+                v-on:remove="todos.splice(index, 1)"></li>
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script>
+        Vue.component('todo-item', {
+            template: '\
+    <li>\
+      {{ title }}\
+      <button v-on:click="$emit(\'remove\')">削除</button>\
+    </li>\
+  ',
+            props: ['title']
+        })
+
+        new Vue({
+            el: '#todo-list-example',
+            data: {
+                newTodoText: '',
+                todos: [{
+                        id: 1,
+                        title: '皿を洗う',
+                    },
+                    {
+                        id: 2,
+                        title: 'ゴミを出す',
+                    },
+                    {
+                        id: 3,
+                        title: '芝を刈る'
+                    }
+                ],
+                nextTodoId: 4
+            },
+            methods: {
+                addNewTodo: function () {
+                    this.todos.push({
+                        id: this.nextTodoId++,
+                        title: this.newTodoText
+                    })
+                    this.newTodoText = ''
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
