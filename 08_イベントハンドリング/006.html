@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>インラインメソッドハンドラ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h3>システム修飾子キー</h3>
+
+    <div id="app">
+
+        <h4>通常動作</h4>
+
+        <div>下のボックスで Ctrl を押すととOKが表示されます</div>
+        <input v-on:keydown.ctrl="ok">
+
+        <hr>
+
+        <div>下のボックスで Alt を押すとOKが表示されます</div>
+        <input v-on:keydown.alt="ok">
+
+        <hr>
+
+        <div>下のボックスで Shift を押すとOKが表示されます</div>
+        <input v-on:keydown.shift="ok">
+
+        <hr>
+
+        <div>下のボックスで Windowsキー or Option を押すとOKが表示されます</div>
+        <input v-on:keydown.meta="ok">
+
+        <hr>
+        <h4>.exact 修飾子</h4>
+
+        <div>キーを厳密に判定する</div>
+        <br>
+        <div>下のボックスで Ctrl単品でも、Shift + Ctrlでも 押すととOKが表示されます</div>
+        <input v-on:keydown.ctrl="ok">
+        <br>
+        <div>下のボックスで Ctrl単品のときだけ 押すととOKが表示されます</div>
+        <input v-on:keydown.ctrl.exact="ok">
+
+        <hr>
+        <h4>マウスボタンの修飾子</h4>
+
+        <div>マウスボタンも判定できる</div>
+        <br>
+        <div>↓を左クリックでOKが表示されます</div>
+        <div v-on:click.left="ok">ここを左クリック</div>
+        <br>
+        <div>↓を右クリックでOKが表示されます</div>
+        <div v-on:click.right="ok">ここを左クリック</div>
+        <br>
+        <div>↓をホイールクリックでOKが表示されます</div>
+        <div v-on:click.middle="ok">ここを左クリック</div>
+        <br>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            methods: {
+                ok: function () {
+                    alert("OK!");
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

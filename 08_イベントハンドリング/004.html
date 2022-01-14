@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>インラインメソッドハンドラ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h3>イベント修飾子</h3>
+
+    <div id="app">
+
+        <!-- クリックイベントの伝搬が止まります -->
+        <h4>.stop</h4>
+        <p>伝搬イベントを停止させる</p>
+
+        <div>停止させない(自分→親の順にイベントが実行される)</div>
+        <div v-on:click="doPerent">
+            <a v-on:click="doThis">ここをクリック</a>
+        </div>
+        <br>
+        <div>停止させる(自分のイベントのみ実行される)</div>
+        <div v-on:click="doPerent">
+            <a v-on:click.stop="doThis">ここをクリック</a>
+        </div>
+
+        <hr>
+
+        <!-- submit イベントによってページがリロードされません -->
+        <h4>.prevent</h4>
+        <p>HTML要素のイベントを実行させない</p>
+
+        <form v-on:submit="onSubmit">
+            <button type="submit">画面遷移する</button>
+        </form>
+        <br>
+        <form v-on:submit.prevent="onSubmit">
+            <button type="submit">画面遷移しない</button>
+        </form>
+
+        <hr>
+
+        <!-- 修飾子は繋げることができます -->
+        <h4>修飾子をつなげられる</h4>
+        <p>HTML要素のイベントを実行させない</p>
+        <div v-on:click="doPerent">
+            <a v-on:click.stop.prevent="doThat" href="hoge">親も実行しないし、リンクも発動しない</a>
+        </div>
+
+        <hr>
+
+        <!-- 値を指定せず、修飾子だけ利用することもできます -->
+        <h4>値なし設定も可能</h4>
+        <p>自身のイベントの設定なしでも使用できる</p>
+        <form v-on:submit.prevent>
+            <button type="submit">画面遷移しない</button>
+        </form>
+
+        <hr>
+
+        <!-- イベントリスナーを追加するときにキャプチャモードで使います -->
+        <!-- 言い換えれば、内部要素を対象とするイベントは、その要素によって処理される前にここで処理されます -->
+        <h4>.capture</h4>
+        <p>親から子供に向かってイベントを実行させる</p>
+        <p>↓をクリックすると、自身 → 子 → 親の順にイベントが実行される</p>
+
+        <div v-on:click="doPerent">
+            <div v-on:click="doChild">
+                <a v-on:click.capture="doThis">ここをクリック</a>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- event.target が要素自身のときだけ、ハンドラが呼び出されます -->
+        <!-- 言い換えると子要素のときは呼び出されません -->
+        <h4>.self</h4>
+        <p>自分から呼び出した場合のみ実行される（子要素がクリックされても実行しない）</p>
+        <div v-on:click.self="doThat">
+            ここをクリックするとイベントが発生する
+            <div>ここをクリックしても発生しない</div>
+        </div>
+
+        <hr>
+
+        <!-- 最大1回、クリックイベントはトリガされます -->
+        <h4>.once</h4>
+        <p>一度だけ実行される</p>
+        <a v-on:click.once="doThis">ここをクリック</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            methods: {
+                doThis: function () {
+                    alert("自身のイベント");
+                },
+                doThat: function () {
+                    alert("それ");
+                },
+                onSubmit: function () {
+                    alert("送信");
+                },
+                doPerent: function () {
+                    alert("親のイベント");
+                },
+                doChild: function () {
+                    alert("子のイベント");
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

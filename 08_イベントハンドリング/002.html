@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>イベントハンドリング</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h3>メソッドイベントハンドラ</h3>
+
+    読み込み時にアラートが出ます。(直接呼出しの確認)<br>
+    挨拶ボタンクリック時にもアラートが出ます。さらに、どのタグから呼ばれたのかも表示されます。<br>
+
+    <div id="example-2">
+        <!-- `greet` は、あらかじめ定義したメソッドの名前 -->
+        <button v-on:click="greet">挨拶</button>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script>
+        var example2 = new Vue({
+            el: '#example-2',
+            data: {
+                name: 'Vue.js'
+            },
+            // `methods` オブジェクトの下にメソッドを定義する
+            methods: {
+                greet: function (event) {
+                    // メソッド内の `this` は、 Vue インスタンスを参照します
+                    alert('こんにちわ ' + this.name + '!');
+                    // `event` は、ネイティブ DOM イベントです
+                    if (event) {
+                        alert(event.target.tagName);
+                    }
+                }
+            }
+        });
+
+        example2.greet(); // => 'Hello Vue.js!'
+    </script>
+</body>
+
+</html>

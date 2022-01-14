@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>インラインメソッドハンドラ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h3>メソッドイベントハンドラ</h3>
+
+    直接引数も渡すことが可能<br>
+
+    <div id="example-3">
+        <button v-on:click="say('こんにちは')">こんにちはと言わせる</button>
+        <button v-on:click="say('何！？')">何！？と言わせる</button>
+    </div>
+
+    <hr>
+    イベント側で、クリックされた要素も参照可能<br>
+    <div id="app2">
+        <button v-on:click="warn('フォームはまだ送信できません', $event)">
+            送信
+        </button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#example-3',
+            methods: {
+                say: function (message) {
+                    alert(message)
+                }
+            }
+        })
+        new Vue({
+            el: '#app2',
+            methods: {
+                warn: function (message, event) {
+                    // ネイティブイベントを参照しています
+                    if (event) {
+                        event.preventDefault();
+                    }
+                    alert(message + " 呼び出し元タグ名：" + event.srcElement.tagName);
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

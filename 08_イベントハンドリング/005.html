@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>インラインメソッドハンドラ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h3>キー修飾子</h3>
+
+    <div id="app">
+
+        <h4>Vue で定義済のもの</h4>
+
+        <div>下のボックスで Enter を押すととOKが表示されます</div>
+        <input v-on:keydown.enter="ok">
+
+        <hr>
+
+        <div>下のボックスで Tab を押すとOKが表示されます</div>
+        <input v-on:keydown.tab="ok">
+
+        <hr>
+
+        <div>下のボックスで Delete か BackSpace を押すとOKが表示されます</div>
+        <input v-on:keydown.delete="ok">
+
+        <hr>
+
+        <div>下のボックスで Esc を押すとOKが表示されます</div>
+        <input v-on:keydown.esc="ok">
+
+        <hr>
+
+        <div>下のボックスで Space を押すとOKが表示されます</div>
+        <input v-on:keydown.space="ok">
+
+        <hr>
+
+        <div>下のボックスで ↑ を押すとOKが表示されます</div>
+        <input v-on:keydown.up="ok">
+
+        <hr>
+
+        <div>下のボックスで ↓ を押すとOKが表示されます</div>
+        <input v-on:keydown.down="ok">
+
+        <hr>
+
+        <div>下のボックスで ← を押すとOKが表示されます</div>
+        <input v-on:keydown.left="ok">
+
+        <hr>
+
+        <div>下のボックスで → を押すとOKが表示されます</div>
+        <input v-on:keydown.right="ok">
+
+        <hr>
+        <h4>Vue で定義していないもの</h4>
+        <p>ブラウザ側で定義している名前でアクセスできる</p>
+
+        <div>下のボックスで Shift + CapsLock を押すとOKが表示されます</div>
+        <input v-on:keydown.caps-lock="ok">
+        <hr>
+
+        <div>下のボックスで PageUp を押すとOKが表示されます</div>
+        <input v-on:keydown.page-up="ok">
+        <hr>
+
+        <div>下のボックスで PageDown を押すとOKが表示されます</div>
+        <input v-on:keydown.page-down="ok">
+        <hr>
+
+        <div>下のボックスで End を押すとOKが表示されます</div>
+        <input v-on:keydown.end="ok">
+        <hr>
+
+        <div>下のボックスで Home を押すとOKが表示されます</div>
+        <input v-on:keydown.home="ok">
+        <hr>
+
+        <div>下のボックスで Insert を押すとOKが表示されます</div>
+        <input v-on:keydown.insert="ok">
+        <hr>
+
+        <div>下のボックスで NumLock を押すとOKが表示されます</div>
+        <input v-on:keydown.num-lock="ok">
+        <hr>
+
+        <div>下のボックスで ScrollLock を押すとOKが表示されます</div>
+        <input v-on:keydown.scroll-lock="ok">
+        <hr>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            methods: {
+                ok: function () {
+                    alert("OK!");
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
