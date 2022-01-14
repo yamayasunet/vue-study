@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>コンポーネントの基本</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+    <h3>単一のルート要素</h3>
+
+    <div id="app1">
+        <div>データ丸ごとバインドすることにより、直接タグを修正しなくても、テンプレートの変更だけで対応が可能になる</div>
+        <blog-post v-for="post in posts" v-bind:key="post.id" v-bind:post="post"></blog-post>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script>
+        Vue.component('blog-post', {
+            props: ['post'],
+            template: `
+<div class="blog-post">
+    <h5>{{ post.title }}</h5>
+    <div v-html="post.content"></div>
+</div>
+`
+        });
+
+        new Vue({
+            el: '#app1',
+            data: {
+                posts: [{
+                        id: 1,
+                        title: 'Vueと私の旅',
+                        content: 'Vueと共にあれ。'
+                    },
+                    {
+                        id: 2,
+                        title: 'Vueでブログを書く',
+                        content: 'ブログを書いてみました。'
+                    },
+                    {
+                        id: 3,
+                        title: 'Vueがとても楽しい理由',
+                        content: 'それは、神のみぞ知る。'
+                    }
+                ]
+            }
+        });
+    </script>
+</body>
+
+</html>

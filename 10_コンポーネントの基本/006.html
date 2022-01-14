@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>コンポーネントの基本</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+    <h3>子コンポーネントのイベントを購読する</h3>
+    <div>コンポーネントで v-model を使う</div>
+
+    <div id="app1">
+        <hr>
+        <div>基本形</div>
+        <input v-bind:value="searchText1" v-on:input="searchText1 = $event.target.value">
+
+        <div>短縮形(v-model)</div>
+        <input v-model="searchText2">
+
+        <div>コンポーネントで使う場合</div>
+        <custom-input v-model="searchText3"></custom-input>
+
+        <hr>
+        <div>
+            短縮して何がうれしいのかというと、項目に応じて自動的に展開されるため
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>項目種類</th>
+                        <th><code>v-bind:</code></th>
+                        <th><code>v-on:</code></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>テキストボックス、テキストエリア</td>
+                        <td><code>value</code></td>
+                        <td><code>input</code></td>
+                    </tr>
+                    <tr>
+                        <td>チェックボックス、ラジオボタン</td>
+                        <td><code>checked</code></td>
+                        <td><code>change</code></td>
+                    </tr>
+                    <tr>
+                        <td>セレクトボックス</td>
+                        <td><code>value</code></td>
+                        <td><code>change</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script>
+        Vue.component('custom-input', {
+            props: ['value'],
+            template: `
+    <input
+      v-bind:value="value"
+      v-on:input="$emit('input', $event.target.value)"
+    >
+  `
+        })
+        new Vue({
+            el: '#app1',
+            data: {
+                searchText1: "検索文字列1",
+                searchText2: "検索文字列2",
+                searchText3: "検索文字列3"
+            }
+        });
+    </script>
+</body>
+
+</html>

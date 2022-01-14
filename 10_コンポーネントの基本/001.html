@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>コンポーネントの基本</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+
+
+    <h3>基本例</h3>
+
+    <div>コンポーネント化したものを呼ぶときはタグとして記入</div>
+
+    <div id="app1">
+        <button-counter></button-counter>
+    </div>
+
+    <h3>コンポーネントの再利用</h3>
+
+    <div>コンポーネント化したものは何度でも使える</div>
+    <div id="app2">
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+    </div>
+
+    <h3>data は関数でなければなりません</h3>
+    <div>もし、関数じゃない場合、↓のように画面上の値がすべて変わってしまう</div>
+    <div id="app3">
+        <button-counter2></button-counter2>
+        <button-counter2></button-counter2>
+        <button-counter2></button-counter2>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script>
+        // button-counter と呼ばれる新しいコンポーネントを定義します
+        Vue.component('button-counter', {
+            data: function () {
+                return {
+                    count: 0
+                }
+            },
+            template: '<button v-on:click="count++">私がクリックされたのは {{ count }} 回です</button>'
+        })
+
+        // この実装は説明のための実装なのでマネしないように
+        var bc2Data = {
+            count: 0
+        };
+        Vue.component('button-counter2', {
+            data: function () {
+                return bc2Data;
+            },
+            template: '<button v-on:click="count++">私がクリックされたのは {{ count }} 回です</button>'
+        })
+
+
+        new Vue({
+            el: '#app1',
+            data: {}
+        });
+        new Vue({
+            el: '#app2',
+            data: {}
+        });
+        new Vue({
+            el: '#app3',
+            data: {}
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>コンポーネントの基本</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+    <h3>プロパティを使用した子コンポーネントへのデータの受け渡し</h3>
+
+    <div id="app1">
+        <p>基本的な使い方</p>
+        <div>コンポーネント化したものを使うときには、基本的には 仮想タグを記載する</div>
+        <blog-post title="Vueと私の旅"></blog-post>
+        <blog-post title="Vueでブログを書く"></blog-post>
+        <blog-post title="Vueがとても楽しい理由"></blog-post>
+
+        <hr>
+
+        <p>変数から設定する場合</p>
+        <div>v-bindとv-forを活用して、表示することができる</div>
+        <blog-post v-for="post in posts" v-bind:key="post.id" v-bind:title="post.title"></blog-post>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script>
+        Vue.component('blog-post', {
+            props: ['title'],
+            template: '<h5>{{ title }}</h5>'
+        });
+
+        new Vue({
+            el: '#app1',
+            data: {
+                posts: [{
+                        id: 1,
+                        title: 'Vueと私の旅'
+                    },
+                    {
+                        id: 2,
+                        title: 'Vueでブログを書く'
+                    },
+                    {
+                        id: 3,
+                        title: 'Vueがとても楽しい理由'
+                    }
+                ]
+            }
+        });
+    </script>
+</body>
+
+</html>
