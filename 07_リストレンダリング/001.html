@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>条件付きレンダリング</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
@@ -36,9 +36,12 @@
         var example1 = new Vue({
             el: '#example-1',
             data: {
-                items: [
-                    { message: '太郎' },
-                    { message: '次郎' }
+                items: [{
+                        message: '太郎'
+                    },
+                    {
+                        message: '次郎'
+                    }
                 ]
             }
         });
@@ -47,9 +50,12 @@
             el: '#example-2',
             data: {
                 parentMessage: '佐藤',
-                items: [
-                    { message: '太郎' },
-                    { message: '次郎' }
+                items: [{
+                        message: '太郎'
+                    },
+                    {
+                        message: '次郎'
+                    }
                 ]
             }
         });
@@ -58,13 +64,15 @@
             el: '#example-3',
             data: {
                 parentMessage: '佐藤',
-                items: [
-                    { message: '太郎' },
-                    { message: '次郎' }
+                items: [{
+                        message: '太郎'
+                    },
+                    {
+                        message: '次郎'
+                    }
                 ]
             }
         });
-
     </script>
 </body>
 

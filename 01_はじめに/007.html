@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>コンポーネントによる構成</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
@@ -29,10 +29,18 @@
         var app7 = new Vue({
             el: '#app-7',
             data: {
-                groceryList: [
-                    { id: 0, text: '野菜' },
-                    { id: 1, text: 'チーズ' },
-                    { id: 2, text: '人間が食べれるものは何でも' }
+                groceryList: [{
+                        id: 0,
+                        text: '野菜'
+                    },
+                    {
+                        id: 1,
+                        text: 'チーズ'
+                    },
+                    {
+                        id: 2,
+                        text: '人間が食べれるものは何でも'
+                    }
                 ]
             }
         })
